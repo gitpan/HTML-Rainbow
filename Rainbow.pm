@@ -10,7 +10,7 @@ use Tie::Cycle::Sinewave;
 
 use vars qw/$VERSION @PRIMES/;
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 @PRIMES  = qw(17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79);
 
 =head1 NAME
@@ -19,8 +19,8 @@ HTML::Rainbow - Put colour into your HTML
 
 =head1 VERSION
 
-This document describes version 0.01 of HTML::Rainbow,
-released 2005-09-25.
+This document describes version 0.02 of HTML::Rainbow,
+released 2005-10-01.
 
 =head1 SYNOPSIS
 

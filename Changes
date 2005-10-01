@@ -1,5 +1,9 @@
 Revision history for Perl extension HTML::Rainbow
 
-0.01  2005-09-25 16:44:58 UTC
+0.02 2005-10-01 18:15:36 UTC
+    - eg/html-parser was left off the manifest
+    - release dates were incorrect in the documentation
+
+0.01 2005-09-25 16:44:58 UTC
     - original version; created by genpm v1.0
 

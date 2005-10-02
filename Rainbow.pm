@@ -10,7 +10,7 @@ use Tie::Cycle::Sinewave;
 
 use vars qw/$VERSION @PRIMES/;
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 @PRIMES  = qw(17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79);
 
 =head1 NAME
@@ -19,8 +19,8 @@ HTML::Rainbow - Put colour into your HTML
 
 =head1 VERSION
 
-This document describes version 0.02 of HTML::Rainbow,
-released 2005-10-01.
+This document describes version 0.03 of HTML::Rainbow,
+released 2005-10-02.
 
 =head1 SYNOPSIS
 
@@ -265,6 +265,12 @@ parameter is a reference to an array.
     period_list => [qw[ 19 37 53 71 89 107 131 151 173 193 ]],
   );
 
+=item use_span
+
+Use the HTML C<< <span> >> element instead of the C<< <font> >>
+element for specifying the colour. The result uses 6 more characters
+per marked up character.
+
 =back
 
 The most specific parameter wins. If both, for example, a C<red>
@@ -375,6 +381,11 @@ None.
 =head1 SEE ALSO
 
 =over 8
+
+=item L<Tie::Cycle::Sinewave>
+
+The individual red, green and blue colour components follow
+sinewaves produced by this module.
 
 =item L<HTML::Parser>
 

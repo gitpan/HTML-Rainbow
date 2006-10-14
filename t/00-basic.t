@@ -7,7 +7,7 @@
 
 use strict;
 
-eval qq{ use Test::More tests => 6 };
+eval qq{ use Test::More tests => 7 };
 if( $@ ) {
     warn "# Test::More not available, no tests performed\n";
     print "1..1\nok 1\n";
@@ -25,19 +25,19 @@ diag( "testing HTML::Rainbow v$HTML::Rainbow::VERSION" );
     my $t = HTML::Rainbow->new;
     ok( defined($t), 'new() defines ...' );
     ok( ref($t) eq 'HTML::Rainbow', '... a HTML::Rainbow object' );
-
-	use Data::Dumper; print Dumper($t), "\n";
-	use Data::Dumper; print Dumper($t), "\n";
 }
 
 SKIP: {
-    skip( 'Test::Pod not installed on this system', 2 )
+    skip( 'Test::Pod not installed on this system', 3 )
         unless do {
             eval "use Test::Pod";
             $@ ? 0 : 1;
         };
 
-    pod_file_ok( 'Rainbow.pm' );    pod_file_ok( 'eg/rainbow' );}
+    pod_file_ok( 'Rainbow.pm' );
+    pod_file_ok( 'eg/rainbow.pl' );
+    pod_file_ok( 'eg/html-parse' );
+}
 
 SKIP: {
     skip( 'Test::Pod::Coverage not installed on this system', 1 )

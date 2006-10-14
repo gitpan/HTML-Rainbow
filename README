@@ -1,4 +1,4 @@
-The file is the README for HTML::Rainbow version 0.03
+The file is the README for HTML::Rainbow version 0.04
 
 INSTALLATION
 
@@ -33,7 +33,8 @@ use HTML::Rainbow;
 
 STATUS
 
-This module is under active development.
+This module is considered stable. Further additions in functionality
+are unlikely (but patches are always welcome).
 
 AUTHOR
 
@@ -41,7 +42,7 @@ David Landgren
 
 COPYRIGHT
 
-This module is copyright (C) David Landgren 2005.
+This module is copyright (C) David Landgren 2005-2006.
 All rights reserved.
 
 LICENSE

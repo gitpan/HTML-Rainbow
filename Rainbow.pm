@@ -4,13 +4,15 @@
 # All rights reserved
 
 package HTML::Rainbow;
-use strict;
 
+use strict;
+use Exporter;
 use Tie::Cycle::Sinewave;
 
-use vars qw/$VERSION @PRIMES/;
+use vars qw/$VERSION @PRIMES @ISA @EXPORT_OK/;
 
-$VERSION = '0.03';
+$VERSION = '0.04';
+@ISA     = ('Exporter');
 @PRIMES  = qw(17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79);
 
 =head1 NAME
@@ -19,12 +21,13 @@ HTML::Rainbow - Put colour into your HTML
 
 =head1 VERSION
 
-This document describes version 0.03 of HTML::Rainbow,
-released 2005-10-02.
+This document describes version 0.04 of HTML::Rainbow, released
+2006-10-14.
 
 =head1 SYNOPSIS
 
-  use HTML::Rainbow;
+  use HTML::Rainbow 'rainbow';
+  print rainbow('hello, world');
 
 =head1 DESCRIPTION
 
@@ -290,8 +293,12 @@ sub new {
         map {( $_, "${_}_min", "${_}_max" )} qw( red green blue )
     ) {
         next unless exists $args{$attr};
+        # reduce round-off errors
+        # perl -le 'print 1/2+1/32+1/64+1/512+1/1024+1/4096'
+        my $scale = 2 + 1/2 + 1/32 + 1/64 + 1/512 + 1/1024 + 1/4096;
+        # 2.550048828125 approx 2.55
         # 43% => 43 / 100 * 255 => 43 * 2.55 => 110
-        $args{$attr} =~ s{^(\d+(?:\.\d+)?)\s*%$}{sprintf('%d',$1 * 2.55)}e;
+        $args{$attr} =~ s{^(\d+(?:\.\d+)?)\s*%$}{sprintf('%d',sprintf('%0.2f',$1) * $scale)}e;
         $args{$attr} =   0 if $args{$attr} <   0;
         $args{$attr} = 255 if $args{$attr} > 255;
     }
@@ -347,6 +354,7 @@ C<rainbow> method on from the C<new> method:
 
 =cut
 
+push @EXPORT_OK, 'rainbow';
 sub rainbow {
     my $self = shift;
     my $out  = '';
@@ -419,7 +427,7 @@ cleaning it up.
 
 =head1 AUTHOR
 
-David Landgren, copyright (C) 2005. All rights reserved.
+David Landgren, copyright (C) 2005-2006. All rights reserved.
 
 http://www.landgren.net/perl/
 

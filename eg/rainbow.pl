@@ -1,5 +1,5 @@
 #! /usr/local/bin/perl -w
-# rainbow - example script for HTML::Rainbow
+# rainbow.pl - example script for HTML::Rainbow
 #
 # a simple filter that allows some of the HTML::Rainbow
 # parameters to be set. Accepts input on STDIN and writes

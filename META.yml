@@ -1,9 +1,9 @@
 --- #YAML:1.0
 name:                HTML-Rainbow
-version:             0.04
+version:             0.05
 abstract:            Put colour into your HTML
 license:             perl
-generated_by:        ExtUtils::MakeMaker version 6.31
+generated_by:        ExtUtils::MakeMaker version 6.36
 distribution_type:   module
 requires:     
     Tie::Cycle::Sinewave:          0.01

@@ -3,49 +3,51 @@
 # Test suite for HTML::Rainbow
 # Make sure the basic stuff works
 #
-# copyright (C) 2005 David Landgren
+# copyright (C) 2005-2007 David Landgren
 
 use strict;
-
-eval qq{ use Test::More tests => 7 };
-if( $@ ) {
-    warn "# Test::More not available, no tests performed\n";
-    print "1..1\nok 1\n";
-    exit 0;
-}
+use Test::More;
 
 use HTML::Rainbow;
-
-my $Unchanged = 'The scalar remains the same';
-$_ = $Unchanged;
-
 diag( "testing HTML::Rainbow v$HTML::Rainbow::VERSION" );
 
-{
-    my $t = HTML::Rainbow->new;
-    ok( defined($t), 'new() defines ...' );
-    ok( ref($t) eq 'HTML::Rainbow', '... a HTML::Rainbow object' );
+if (!$ENV{PERL_AUTHOR_TESTING}) {
+    plan skip_all => 'PERL_AUTHOR_TESTING environment variable not set (or zero)';
+    exit;
+}
+
+my %tests = (
+    POD          => 3,
+    POD_COVERAGE => 1,
+);
+my %tests_skip = %tests;
+
+eval qq{use Test::Pod};
+$@ and delete $tests{POD};
+
+eval qq{use Test::Pod::Coverage};
+$@ and delete $tests{POD_COVERAGE};
+
+if (keys %tests) {
+    my $nr = 0;
+    $nr += $_ for values %tests;
+    plan tests => $nr;
+}
+else {
+    plan skip_all => 'POD and Kwalitee testing modules not installed';
 }
 
 SKIP: {
-    skip( 'Test::Pod not installed on this system', 3 )
-        unless do {
-            eval "use Test::Pod";
-            $@ ? 0 : 1;
-        };
-
+    skip( 'Test::Pod not installed on this system', $tests_skip{POD} )
+        unless $tests{POD};
     pod_file_ok( 'Rainbow.pm' );
     pod_file_ok( 'eg/rainbow.pl' );
     pod_file_ok( 'eg/html-parse' );
 }
 
 SKIP: {
-    skip( 'Test::Pod::Coverage not installed on this system', 1 )
-        unless do {
-            eval "use Test::Pod::Coverage";
-            $@ ? 0 : 1;
-        };
+    skip( 'Test::Pod::Coverage not installed on this system', $tests_skip{POD_COVERAGE} )
+        unless $tests{POD_COVERAGE};
     pod_coverage_ok( 'HTML::Rainbow', 'POD coverage is go!' );
-}
+};
 
-cmp_ok( $_, 'eq', $Unchanged, '$_ has not been altered' );

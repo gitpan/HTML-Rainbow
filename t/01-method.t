@@ -3,21 +3,21 @@
 # Test suite for HTML::Rainbow
 # Test the module methods
 #
-# copyright (C) 2005-2006 David Landgren
+# copyright (C) 2005-2007 David Landgren
 
 use strict;
+use Test::More tests => 14;
 
-eval qq{use Test::More tests => 11};
-if( $@ ) {
-    warn "# Test::More not available, no tests performed\n";
-    print "1..1\nok 1\n";
-    exit 0;
-}
-
-use HTML::Rainbow;
+BEGIN { use_ok('HTML::Rainbow') }
 
 my $Unchanged = 'The scalar remains the same';
 $_ = $Unchanged;
+
+{
+    my $t = HTML::Rainbow->new;
+    ok( defined($t), 'new() defines ...' );
+    ok( ref($t) eq 'HTML::Rainbow', '... a HTML::Rainbow object' );
+}
 
 {
     # check clipping, min/max swapping, and percents
@@ -64,4 +64,4 @@ like( HTML::Rainbow->new->rainbow( 'a b' ),
     'skip space'
 );
 
-cmp_ok( $_, 'eq', $Unchanged, '$_ has not been altered' );
+cmp_ok( $_, 'eq', $Unchanged, $Unchanged );

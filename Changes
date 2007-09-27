@@ -1,9 +1,13 @@
 Revision history for Perl extension HTML::Rainbow
 
-0.04 2006-10-14 07:57:54 UTC
+0.05 2007-09-27 10:39:59 UTC
+    - Rebuild with a more recent EU::MM to generate a correct
+      META.yml file.
+    - Minor test restructuring
+
+0.04 2006-10-14 07:48:16 UTC
     - reworked tests to avoid bogus failure caused by
       rounding errors.
-	- declared rainbow() as exportable.
     - clarified licensing information in Makefile.PL
     - renamed an example file to gain Kwalitee (I have no shame).
 

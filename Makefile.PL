@@ -15,6 +15,6 @@ WriteMakefile(
     AUTHOR        => 'David Landgren',
     LICENSE       => 'perl',
     PREREQ_PM     => {
-		'Tie::Cycle::Sinewave' => 0.01,
-	},
+        'Tie::Cycle::Sinewave' => 0.01,
+    },
 );

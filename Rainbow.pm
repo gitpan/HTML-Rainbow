@@ -1,6 +1,6 @@
 # HTML::Rainbow.pm
 #
-# Copyright (c) 2005 David Landgren
+# Copyright (c) 2005-2007 David Landgren
 # All rights reserved
 
 package HTML::Rainbow;
@@ -11,7 +11,7 @@ use Tie::Cycle::Sinewave;
 
 use vars qw/$VERSION @PRIMES @ISA @EXPORT_OK/;
 
-$VERSION = '0.04';
+$VERSION = '0.05';
 @ISA     = ('Exporter');
 @PRIMES  = qw(17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79);
 
@@ -21,8 +21,8 @@ HTML::Rainbow - Put colour into your HTML
 
 =head1 VERSION
 
-This document describes version 0.04 of HTML::Rainbow, released
-2006-10-14.
+This document describes version 0.05 of HTML::Rainbow, released
+2007-09-27.
 
 =head1 SYNOPSIS
 
@@ -427,7 +427,7 @@ cleaning it up.
 
 =head1 AUTHOR
 
-David Landgren, copyright (C) 2005-2006. All rights reserved.
+David Landgren, copyright (C) 2005-2007. All rights reserved.
 
 http://www.landgren.net/perl/
 

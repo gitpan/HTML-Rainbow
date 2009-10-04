@@ -1,5 +1,8 @@
 Revision history for Perl extension HTML::Rainbow
 
+0.06
+    - Ensure that rainbow() can be called procedurally.
+
 0.05 2007-09-27 10:39:59 UTC
     - Rebuild with a more recent EU::MM to generate a correct
       META.yml file.

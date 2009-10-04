@@ -1,6 +1,6 @@
 # generate Makefile for building HTML::Rainbow
 #
-# Copyright (C) 2005-2006 David Landgren
+# Copyright (C) 2005-2009 David Landgren
 
 use strict;
 use ExtUtils::MakeMaker;
@@ -16,5 +16,8 @@ WriteMakefile(
     LICENSE       => 'perl',
     PREREQ_PM     => {
         'Tie::Cycle::Sinewave' => 0.01,
+    },
+    clean => {
+        FILES => 'cover_db',
     },
 );

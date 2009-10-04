@@ -3,10 +3,10 @@
 # Test suite for HTML::Rainbow
 # Test the module methods
 #
-# copyright (C) 2005-2007 David Landgren
+# copyright (C) 2005-2009 David Landgren
 
 use strict;
-use Test::More tests => 14;
+use Test::More tests => 15;
 
 BEGIN { use_ok('HTML::Rainbow') }
 
@@ -63,5 +63,7 @@ like( HTML::Rainbow->new->rainbow( 'a b' ),
     qr{^<font color="#[\da-f]{6}">a</font> <font color="#[\da-f]{6}">b</font>},
     'skip space'
 );
+
+is (HTML::Rainbow->new->rainbow(undef), '', 'undef');
 
 cmp_ok( $_, 'eq', $Unchanged, $Unchanged );

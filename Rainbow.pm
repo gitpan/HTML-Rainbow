@@ -1,6 +1,6 @@
 # HTML::Rainbow.pm
 #
-# Copyright (c) 2005-2007 David Landgren
+# Copyright (c) 2005-2009 David Landgren
 # All rights reserved
 
 package HTML::Rainbow;
@@ -11,7 +11,7 @@ use Tie::Cycle::Sinewave;
 
 use vars qw/$VERSION @PRIMES @ISA @EXPORT_OK/;
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 @ISA     = ('Exporter');
 @PRIMES  = qw(17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79);
 
@@ -21,8 +21,8 @@ HTML::Rainbow - Put colour into your HTML
 
 =head1 VERSION
 
-This document describes version 0.05 of HTML::Rainbow, released
-2007-09-27.
+This document describes version 0.06 of HTML::Rainbow, released
+2009-10-04.
 
 =head1 SYNOPSIS
 
@@ -355,29 +355,36 @@ C<rainbow> method on from the C<new> method:
 =cut
 
 push @EXPORT_OK, 'rainbow';
-sub rainbow {
-    my $self = shift;
-    my $out  = '';
-
-    for my $str( @_ ) {
-        for my $ch( split //, $str ) {
-            if( $ch =~ /^\s$/ ) {
-                $out .= $ch;
-            }
-            else {
-                my $triple = sprintf( "#%02x%02x%02x",
-                    $self->{red}, $self->{green}, $self->{blue}
-                );
-                if( $self->{use_span} ) {
-                    $out .= qq{<span style="color:$triple">$ch</span>};
+{
+    my $ctx;
+    sub rainbow {
+        my $self = shift;
+        my $out  = '';
+        if (!($self and UNIVERSAL::isa($self,'HTML::Rainbow'))) {
+            # called as a function, not a method
+            unshift @_, $self;
+            $self = $ctx ? $ctx : $ctx = HTML::Rainbow->new;
+        }
+        for my $str( grep defined, @_ ) {
+            for my $ch( split //, $str ) {
+                if( $ch =~ /^\s$/ ) {
+                    $out .= $ch;
                 }
                 else {
-                    $out .= qq{<font color="$triple">$ch</font>};
+                    my $triple = sprintf( "#%02x%02x%02x",
+                        $self->{red}, $self->{green}, $self->{blue}
+                    );
+                    if( $self->{use_span} ) {
+                        $out .= qq{<span style="color:$triple">$ch</span>};
+                    }
+                    else {
+                        $out .= qq{<font color="$triple">$ch</font>};
+                    }
                 }
             }
         }
+        $out
     }
-    $out
 }
 
 =back
@@ -403,6 +410,21 @@ contains some examples to show how this may be done.
 
 =back
 
+=head1 EXAMPLE
+
+The following example produces a valid HTML page.
+
+  use strict;
+  use warnings;
+
+  use CGI ':standard';
+  use HTML::Rainbow;
+
+  print header(),
+    start_html(),
+    HTML::Rainbow->new->rainbow('hello, world'),
+    end_html();
+
 =head1 BUGS
 
 None known.
@@ -412,7 +434,7 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=HTML-Rainbow|rt.cpan.org>
 
 Make sure you include the output from the following two commands:
 
-  perl -MHTML::Rainbow -le 'print HTML::Rainbow::VERSION'
+  perl -MHTML::Rainbow -le 'print $HTML::Rainbow::VERSION'
   perl -V
 
 =head1 ACKNOWLEDGEMENTS
@@ -427,7 +449,7 @@ cleaning it up.
 
 =head1 AUTHOR
 
-David Landgren, copyright (C) 2005-2007. All rights reserved.
+David Landgren, copyright (C) 2005-2009. All rights reserved.
 
 http://www.landgren.net/perl/
 
